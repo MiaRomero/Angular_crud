@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Lions, Tigers, and Bears, oh my!</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body data-ng-app="ohMyApp">
+
+    <main data-ng-controller="LionsController as lionctrl" data-ng-init="lionsctrl.getAll()">
+
+      <h1 id="greeting">{{ greeting }}</h1>
+      <input type="text" data-ng-model="greeting">
+
+      <ul id="lionlist">
+        <li data-ng-repeat="lion in lionsctrl.lions">
+          <span>{{ lion }}</span>
+        </li>
+      </ul>
+    </main>
+
+    <script src="./bundle.js"></script>
+  </body>
+</html>
