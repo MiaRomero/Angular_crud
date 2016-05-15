@@ -8,8 +8,20 @@ var errorHandler = function(error) {
 };
 
 ohMyApp.controller('LionsController', ['$http', function($http) {
-  this.lions = ['Alex', 'Simba'];
+  this.lions = [];
+
   this.getAll = () => {
-    this.lions.push('testLion');
+    $http.get(baseUrl + '/api/lions')
+    .then((res) => {
+      this.lions = res.data;
+    }, errorHandler.bind(this));
+  };
+
+  this.createLion = () => {
+    $http.post(baseUrl + '/api/lions')
+    .then((res) => {
+      this.lions.push(res.data);
+      this.newLion = null;
+    }, errorHandler.bind(this));
   };
 }]);

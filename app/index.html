@@ -8,14 +8,34 @@
 
   <body data-ng-app="ohMyApp">
 
-    <main data-ng-controller="LionsController as lionctrl" data-ng-init="lionsctrl.getAll()">
+    <main data-ng-controller="LionsController as lionsCtrl" data-ng-init="lionsCtrl.getAll()">
+      <form data-ng-submit="lionsCtrl.createLion()">
+
+        <label for="name">Name</label>
+        <input type="text" name="name" data-ng-model="lionsCtrl.newLion.name">
+
+        <label for="variety">Variety</label>
+        <input type="text" name="variety" data-ng-model="lionsCtrl.newLion.variety">
+
+        <label for="location">Location</label>
+        <input type="text" name="location" data-ng-model="lionsCtrl.newLion.location">
+
+        <label for="continent">Continent</label>
+        <input type="text" name="location" data-ng-model="lionsCtrl.newLion.continent">
+
+        <label for="nemesis">Nemesis</label>
+        <input type="text" name="nemesis" data-ng-model="lionsCtrl.newLion.nemesis">
+
+        <button type="submit">Create Lion</button>
+      </form>
+
 
       <h1 id="greeting">{{ greeting }}</h1>
       <input type="text" data-ng-model="greeting">
 
       <ul id="lionlist">
-        <li data-ng-repeat="lion in lionsctrl.lions">
-          <span>{{ lion }}</span>
+        <li data-ng-repeat="lion in lionsCtrl.lions">
+          <span>{{ lion.name }} is a {{ lion.variety }} from {{ lion.location }}. His nemesis is {{ lion.nemesis }}.</span>
         </li>
       </ul>
     </main>
