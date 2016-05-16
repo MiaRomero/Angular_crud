@@ -5,7 +5,6 @@ var bearSchema = new mongoose.Schema({
   variety: String,
   location: String,
   continent: String,
-  favoriteFood: String,
   nemesis: { type: String, default: 'poachers' }
 });
 
