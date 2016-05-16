@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Lions, Tigers, and Bears, oh my!</title>
+    <title>Lions, Tigers, and Bears, Oh My!</title>
     <link rel="stylesheet" href="styles.css">
   </head>
 
@@ -121,6 +121,65 @@
         <button type="submit">Create New Tiger</button>
       </form>
     </section>
+
+
+    <section id="bearSection" data-ng-controller="BearsController as bearsCtrl"
+    data-ng-init="bear.hide = true">
+
+      <button data-ng-click="bearsCtrl.getAll(); bear.hide = false">
+        Show All Bears</button>
+      <button data-ng-if="!bear.hide" data-ng-click="bear.hide = true">
+        Hide All Bears</button>
+
+      <ul data-ng-if="!bear.hide" id="bearlist">
+        <li data-ng-repeat="bear in bearsCtrl.bears">
+        <span data-ng-if="!bear.editing">{{ bearsCtrl.describe(bear) }}</span>
+        <form data-ng-if="bear.editing" data-ng-submit="bearsCtrl.updateBear(bear)">
+          <label for="name">Name</label>
+          <input type="text" name="name" data-ng-model="bear.name">
+
+          <label for="variety">Variety</label>
+          <input type="text" name="variety" data-ng-model="bear.variety">
+
+          <label for="location">Location</label>
+          <input type="text" name="location" data-ng-model="bear.location">
+
+          <label for="continent">Continent</label>
+          <input type="text" name="continent" data-ng-model="bear.continent">
+
+          <label for="nemesis">Nemesis</label>
+          <input type="text" name="nemesis" data-ng-model="bear.nemesis">
+
+          <button type="submit">Update Bear</button>
+          <button data-ng-click="bears.editing = false">Cancel</button>
+        </form>
+
+        <button data-ng-if="!bear.editing" data-ng-click="bear.editing = true">Edit</button>
+        <button data-ng-click="bearsCtrl.removeBear(bear)">Remove Bear</button>
+        </li>
+      </ul>
+
+      <form data-ng-if="!bear.hide" data-ng-submit="bearsCtrl.createBear()">
+        <label for="name">Name</label>
+        <input type="text" name="name" data-ng-model="bearsCtrl.newBear.name">
+
+        <label for="variety">Variety</label>
+        <input type="text" name="variety" data-ng-model="bearsCtrl.newBear.variety">
+
+        <label for="location">Location</label>
+        <input type="text" name="location" data-ng-model="bearsCtrl.newBear.location">
+
+        <label for="continent">Continent</label>
+        <input type="text" name="location" data-ng-model="bearsCtrl.newBear.continent">
+
+        <label for="nemesis">Nemesis</label>
+        <input type="text" name="nemesis" data-ng-model="bearsCtrl.newBear.nemesis"
+        placeholder="poachers">
+
+        <button type="submit">Create New Bear</button>
+      </form>
+    </section>
+
 
     <script src="./bundle.js"></script>
   </body>
