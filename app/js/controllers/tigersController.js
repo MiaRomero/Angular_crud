@@ -1,6 +1,7 @@
-const ohMyApp = require(__dirname + '/ohMyApp');
+const angular = require('angular');
+const ohMyApp = require(__dirname + '/../ohMyApp');
 const baseUrl = 'http://localhost:3000';
-const errorHandler = require(__dirname + '/appErrorHandler');
+const errorHandler = require(__dirname + '/../appErrorHandler');
 
 ohMyApp.controller('TigersController', ['$http', function($http) {
   this.tigers = [];
@@ -23,6 +24,15 @@ ohMyApp.controller('TigersController', ['$http', function($http) {
       this.tigers.push(res.data);
       this.newTiger = null;
     }, errorHandler.bind(this));
+  };
+
+  this.saveCurrentTiger = (tiger) => {
+    this.stashedTiger = angular.copy(tiger);
+  };
+
+  this.usedStashedTiger = (tiger) => {
+    var index = this.tigers.indexOf(tiger);
+    this.tigers[index] = this.stashedTiger;
   };
 
   this.updateTiger = (tiger) => {

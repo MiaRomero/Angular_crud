@@ -1,6 +1,7 @@
-const ohMyApp = require(__dirname + '/ohMyApp');
+const angular = require('angular');
+const ohMyApp = require(__dirname + '/../ohMyApp');
 const baseUrl = 'http://localhost:3000';
-const errorHandler = require(__dirname + '/appErrorHandler');
+const errorHandler = require(__dirname + '/../appErrorHandler');
 
 ohMyApp.controller('LionsController', ['$http', function($http) {
   this.lions = [];
@@ -13,7 +14,7 @@ ohMyApp.controller('LionsController', ['$http', function($http) {
   };
 
   this.describe = (lion) => {
-    return lion.name + ' is a ' + lion.variety + ' lion from ' + lion.location
+    return lion.name + ' is an ' + lion.variety + ' lion from ' + lion.location
      + ' in ' + lion.continent + '. His nemesis is ' + lion.nemesis;
   };
 
@@ -23,6 +24,15 @@ ohMyApp.controller('LionsController', ['$http', function($http) {
       this.lions.push(res.data);
       this.newLion = null;
     }, errorHandler.bind(this));
+  };
+
+  this.saveCurrentLion = (lion) => {
+    this.stashedLion = angular.copy(lion);
+  };
+
+  this.usedStashedLion = (lion) => {
+    var index = this.lions.indexOf(lion);
+    this.lions[index] = this.stashedLion;
   };
 
   this.updateLion = (lion) => {

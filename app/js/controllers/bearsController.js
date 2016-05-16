@@ -1,6 +1,7 @@
-const ohMyApp = require(__dirname + '/ohMyApp');
+const angular = require('angular');
+const ohMyApp = require(__dirname + '/../ohMyApp');
 const baseUrl = 'http://localhost:3000';
-const errorHandler = require(__dirname + '/appErrorHandler');
+const errorHandler = require(__dirname + '/../appErrorHandler');
 
 ohMyApp.controller('BearsController', ['$http', function($http) {
   this.bears = [];
@@ -23,6 +24,15 @@ ohMyApp.controller('BearsController', ['$http', function($http) {
       this.bears.push(res.data);
       this.newBear = null;
     }, errorHandler.bind(this));
+  };
+
+  this.saveCurrentBear = (bear) => {
+    this.stashedBear = angular.copy(bear);
+  };
+
+  this.usedStashedBear = (bear) => {
+    var index = this.bears.indexOf(bear);
+    this.bears[index] = this.stashedBear;
   };
 
   this.updateBear = (bear) => {

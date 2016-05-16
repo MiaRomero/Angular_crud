@@ -36,10 +36,13 @@
           <input type="text" name="nemesis" data-ng-model="lion.nemesis">
 
           <button type="submit">Update Lion</button>
-          <button data-ng-click="lions.editing = false">Cancel</button>
         </form>
+        <button data-ng-if="lion.editing" data-ng-click="lion.editing = false;
+          lionsCtrl.usedStashedLion(lion)">Cancel</button>
 
-        <button data-ng-if="!lion.editing" data-ng-click="lion.editing = true">Edit</button>
+        <button data-ng-if="!lion.editing" data-ng-click="lionsCtrl.saveCurrentLion(lion);
+          lion.editing = true">Edit</button>
+
         <button data-ng-click="lionsCtrl.removeLion(lion)">Remove Lion</button>
         </li>
       </ul>
@@ -93,10 +96,13 @@
           <input type="text" name="nemesis" data-ng-model="tiger.nemesis">
 
           <button type="submit">Update Tiger</button>
-          <button data-ng-click="tigers.editing = false">Cancel</button>
         </form>
+        <button data-ng-if="tiger.editing" data-ng-click="tigers.editing = false;
+          tigersCtrl.usedStashedTiger(tiger)">Cancel</button>
 
-        <button data-ng-if="!tiger.editing" data-ng-click="tiger.editing = true">Edit</button>
+        <button data-ng-if="!tiger.editing" data-ng-click="tigersCtrl.saveCurrentTiger(tiger);
+          tiger.editing = true">Edit</button>
+
         <button data-ng-click="tigersCtrl.removeTiger(tiger)">Remove Tiger</button>
         </li>
       </ul>
@@ -121,7 +127,6 @@
         <button type="submit">Create New Tiger</button>
       </form>
     </section>
-
 
     <section id="bearSection" data-ng-controller="BearsController as bearsCtrl"
     data-ng-init="bear.hide = true">
@@ -151,10 +156,14 @@
           <input type="text" name="nemesis" data-ng-model="bear.nemesis">
 
           <button type="submit">Update Bear</button>
-          <button data-ng-click="bears.editing = false">Cancel</button>
         </form>
 
-        <button data-ng-if="!bear.editing" data-ng-click="bear.editing = true">Edit</button>
+        <button data-ng-if="bear.editing" data-ng-click="bear.editing = false;
+          bearsCtrl.usedStashedBear(bear)">Cancel</button>
+
+        <button data-ng-if="!bear.editing" data-ng-click="bearsCtrl.saveCurrentBear(bear);
+        bear.editing = true">Edit</button>
+
         <button data-ng-click="bearsCtrl.removeBear(bear)">Remove Bear</button>
         </li>
       </ul>
@@ -180,6 +189,29 @@
       </form>
     </section>
 
+
+    <section id="ohMySection" data-ng-controller="OhMyController as ohMyCtrl"
+    data-ng-init="total.hide = true; friends.hide = true">
+
+      <button data-ng-click="ohMyCtrl.getTotals(); total.hide = false">
+        Show Number of Lions, Tigers, and Bears</button>
+      <button data-ng-if="!total.hide" data-ng-click="total.hide = true">
+        Hide Totals</button>
+
+      <p data-ng-if="!total.hide">{{ ohMyCtrl.totalsText }}</p>
+
+      <form data-ng-submit="ohMyCtrl.getFriends()">
+        <input type="text" name="continent" placeholder="Choose Continent"
+        data-ng-model="ohMyCtrl.continent">
+
+        <button type="submit" data-ng-click="friends.hide = false">
+          Find Friends</button>
+      </form>
+
+      <button data-ng-if"!friends.hide" data-ng-click="friends.hide = true;
+        ohMyCtrl.continent = null">Hide Friends</button>
+
+      <p data-ng-if="!friends.hide">{{ ohMyCtrl.friendsText }}</p>
 
     <script src="./bundle.js"></script>
   </body>
