@@ -8,9 +8,43 @@
 
   <body data-ng-app="ohMyApp">
 
-    <main data-ng-controller="LionsController as lionsCtrl" data-ng-init="lionsCtrl.getAll()">
-      <form data-ng-submit="lionsCtrl.createLion()">
+    <section id="lionSection" data-ng-controller="LionsController as lionsCtrl"
+    data-ng-init="lion.hide = true">
 
+      <button data-ng-click="lionsCtrl.getAll(); lion.hide = false">
+        Show All Lions</button>
+      <button data-ng-if="!lion.hide" data-ng-click="lion.hide = true">
+        Hide All Lions</button>
+
+      <ul data-ng-if="!lion.hide" id="lionlist">
+        <li data-ng-repeat="lion in lionsCtrl.lions">
+        <span data-ng-if="!lion.editing">{{ lionsCtrl.describe(lion) }}</span>
+        <form data-ng-if="lion.editing" data-ng-submit="lionsCtrl.updateLion(lion)">
+          <label for="name">Name</label>
+          <input type="text" name="name" data-ng-model="lion.name">
+
+          <label for="variety">Variety</label>
+          <input type="text" name="variety" data-ng-model="lion.variety">
+
+          <label for="location">Location</label>
+          <input type="text" name="location" data-ng-model="lion.location">
+
+          <label for="continent">Continent</label>
+          <input type="text" name="continent" data-ng-model="lion.continent">
+
+          <label for="nemesis">Nemesis</label>
+          <input type="text" name="nemesis" data-ng-model="lion.nemesis">
+
+          <button type="submit">Update Lion</button>
+          <button data-ng-click="lions.editing = false">Cancel</button>
+        </form>
+
+        <button data-ng-if="!lion.editing" data-ng-click="lion.editing = true">Edit</button>
+        <button data-ng-click="lionsCtrl.removeLion(lion)">Remove Lion</button>
+        </li>
+      </ul>
+
+      <form data-ng-if="!lion.hide" data-ng-submit="lionsCtrl.createLion()">
         <label for="name">Name</label>
         <input type="text" name="name" data-ng-model="lionsCtrl.newLion.name">
 
@@ -24,21 +58,14 @@
         <input type="text" name="location" data-ng-model="lionsCtrl.newLion.continent">
 
         <label for="nemesis">Nemesis</label>
-        <input type="text" name="nemesis" data-ng-model="lionsCtrl.newLion.nemesis">
+        <input type="text" name="nemesis" data-ng-model="lionsCtrl.newLion.nemesis"
+        placeholder="poachers">
 
-        <button type="submit">Create Lion</button>
+        <button type="submit">Create New Lion</button>
       </form>
 
 
-      <h1 id="greeting">{{ greeting }}</h1>
-      <input type="text" data-ng-model="greeting">
-
-      <ul id="lionlist">
-        <li data-ng-repeat="lion in lionsCtrl.lions">
-          <span>{{ lion.name }} is a {{ lion.variety }} from {{ lion.location }}. His nemesis is {{ lion.nemesis }}.</span>
-        </li>
-      </ul>
-    </main>
+    </section>
 
     <script src="./bundle.js"></script>
   </body>

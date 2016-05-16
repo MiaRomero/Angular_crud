@@ -5,6 +5,7 @@ var tigerSchema = new mongoose.Schema({
   variety: String,
   location: String,
   continent: String,
+  numOfStripes: Number,
   nemesis: { type: String, default: 'poachers' }
 });
 
