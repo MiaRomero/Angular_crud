@@ -63,8 +63,63 @@
 
         <button type="submit">Create New Lion</button>
       </form>
+    </section>
 
+    <section id="tigerSection" data-ng-controller="TigersController as tigersCtrl"
+    data-ng-init="tiger.hide = true">
 
+      <button data-ng-click="tigersCtrl.getAll(); tiger.hide = false">
+        Show All Tigers</button>
+      <button data-ng-if="!tiger.hide" data-ng-click="tiger.hide = true">
+        Hide All Tigers</button>
+
+      <ul data-ng-if="!tiger.hide" id="tigerlist">
+        <li data-ng-repeat="tiger in tigersCtrl.tigers">
+        <span data-ng-if="!tiger.editing">{{ tigersCtrl.describe(tiger) }}</span>
+        <form data-ng-if="tiger.editing" data-ng-submit="tigersCtrl.updateTiger(tiger)">
+          <label for="name">Name</label>
+          <input type="text" name="name" data-ng-model="tiger.name">
+
+          <label for="variety">Variety</label>
+          <input type="text" name="variety" data-ng-model="tiger.variety">
+
+          <label for="location">Location</label>
+          <input type="text" name="location" data-ng-model="tiger.location">
+
+          <label for="continent">Continent</label>
+          <input type="text" name="continent" data-ng-model="tiger.continent">
+
+          <label for="nemesis">Nemesis</label>
+          <input type="text" name="nemesis" data-ng-model="tiger.nemesis">
+
+          <button type="submit">Update Tiger</button>
+          <button data-ng-click="tigers.editing = false">Cancel</button>
+        </form>
+
+        <button data-ng-if="!tiger.editing" data-ng-click="tiger.editing = true">Edit</button>
+        <button data-ng-click="tigersCtrl.removeTiger(tiger)">Remove Tiger</button>
+        </li>
+      </ul>
+
+      <form data-ng-if="!tiger.hide" data-ng-submit="tigersCtrl.createTiger()">
+        <label for="name">Name</label>
+        <input type="text" name="name" data-ng-model="tigersCtrl.newTiger.name">
+
+        <label for="variety">Variety</label>
+        <input type="text" name="variety" data-ng-model="tigersCtrl.newTiger.variety">
+
+        <label for="location">Location</label>
+        <input type="text" name="location" data-ng-model="tigersCtrl.newTiger.location">
+
+        <label for="continent">Continent</label>
+        <input type="text" name="location" data-ng-model="tigersCtrl.newTiger.continent">
+
+        <label for="nemesis">Nemesis</label>
+        <input type="text" name="nemesis" data-ng-model="tigersCtrl.newTiger.nemesis"
+        placeholder="poachers">
+
+        <button type="submit">Create New Tiger</button>
+      </form>
     </section>
 
     <script src="./bundle.js"></script>

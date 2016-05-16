@@ -1,8 +1,6 @@
-const angular = require('angular');
-const ohMyApp = angular.module('ohMyApp', []);
+const ohMyApp = require(__dirname + '/ohMyApp');
 const baseUrl = 'http://localhost:3000';
 const errorHandler = require(__dirname + '/appErrorHandler');
-
 
 ohMyApp.controller('LionsController', ['$http', function($http) {
   this.lions = [];
