@@ -10,6 +10,8 @@ var serverFiles = ['lib/**/*.js', 'test/**/*test.js', 'gulpfile.js',
                   'index.js', 'server/**/*.js'];
 var clientFiles = ['app/**/*.js'];
 
+var serverTestFiles = ['test/*.js'];
+
 // lint tasks
 gulp.task('lint:server', () => {
   return gulp.src(serverFiles)
@@ -47,3 +49,30 @@ gulp.task('css:dev', () => {
 });
 
 gulp.task('build', ['webpack:dev', 'static:dev', 'css:dev']);
+
+// test tasks
+gulp.task('mocha', () => {
+  return gulp.src(serverTestFiles)
+  .pipe(mocha());
+});
+
+gulp.task('startServers', ['build'], () => {
+  children.push(cp.fork('test/integration/integration_servers.js'));
+});
+
+gulp.task('protractor', ['startServers'], () => {
+  return gulp.src('test/integration/**/*spec.js')
+  .pipe(protractor({
+    configFile: 'test/integration/config.js'
+  }))
+  .on('end', () => {
+    children.forEach( (child) => {
+      child.kill('SIGTERM');
+    });
+  })
+  .on('error', () => {
+    children.forEach( (child) => {
+      child.kill('SIGTERM');
+    });
+  });
+});
