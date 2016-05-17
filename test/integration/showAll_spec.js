@@ -2,6 +2,9 @@
 const appUrl = 'http://localhost:5000';
 const apiUrl = 'http://localhost:3000';
 const request = require('superagent');
+var lionCount = 0;
+var tigerCount = 0;
+var bearCount = 0;
 
 describe('ohMyApp client side show all animals functionality', () => {
   beforeAll( () => {
@@ -30,6 +33,21 @@ describe('ohMyApp client side show all animals functionality', () => {
           continent: 'North America', nemesis: 'bison' })
     .end( () => {
     });
+    request.get(apiUrl + '/api/lions')
+    .end((err, res) => {
+      if (err) console.log(err);
+      lionCount = res.body.length;
+    });
+    request.get(apiUrl + '/api/tigers')
+    .end((err, res) => {
+      if (err) console.log(err);
+      tigerCount = res.body.length;
+    });
+    request.get(apiUrl + '/api/bears')
+    .end((err, res) => {
+      if (err) console.log(err);
+      bearCount = res.body.length;
+    });
   });
 
   it('should show all lions when client clicks "Show All Lions" button', () => {
@@ -37,7 +55,25 @@ describe('ohMyApp client side show all animals functionality', () => {
     element(by.buttonText('Show All Lions')).click();
     var lionRows = element.all(by.repeater('lion in lionsCtrl.lions'));
     lionRows.count().then((count) => {
-      expect(count).toEqual(2);
+      expect(count).toEqual(lionCount);
+    });
+  });
+
+  it('should show all tigers when client clicks "Show All Tigers" button', () => {
+    browser.get(appUrl);
+    element(by.buttonText('Show All Tigers')).click();
+    var tigerRows = element.all(by.repeater('tiger in tigersCtrl.tigers'));
+    tigerRows.count().then((count) => {
+      expect(count).toEqual(tigerCount);
+    });
+  });
+
+  it('should show all bears when client clicks "Show All Bears" button', () => {
+    browser.get(appUrl);
+    element(by.buttonText('Show All Bears')).click();
+    var bearRows = element.all(by.repeater('bear in bearsCtrl.bears'));
+    bearRows.count().then((count) => {
+      expect(count).toEqual(bearCount);
     });
   });
 });
