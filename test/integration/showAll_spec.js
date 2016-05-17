@@ -8,6 +8,16 @@ var bearCount = 0;
 
 describe('ohMyApp client side show all animals functionality', () => {
   beforeAll( () => {
+    request.post(apiUrl + '/api/bears')
+    .send({ name: 'testBear1', variety: 'brown', location: 'Yellowstone',
+          continent: 'North America', nemesis: 'bison' })
+    .end( () => {
+    });
+    request.post(apiUrl + '/api/bears')
+    .send({ name: 'testBear2', variety: 'grizzly', location: 'Yosemite',
+          continent: 'North America', nemesis: 'cliffs' })
+    .end( () => {
+    });
     request.post(apiUrl + '/api/lions')
     .send({ name: 'testLion1', variety: 'African', location: 'Pridelands',
           continent: 'Africa', nemesis: 'hyenas' })
@@ -26,11 +36,6 @@ describe('ohMyApp client side show all animals functionality', () => {
     request.post(apiUrl + '/api/tigers')
     .send({ name: 'testTiger2', variety: 'siberian', location: 'Russia',
           continent: 'Asia', nemesis: 'colors' })
-    .end( () => {
-    });
-    request.post(apiUrl + '/api/bears')
-    .send({ name: 'testBear1', variety: 'brown', location: 'Yellowstone',
-          continent: 'North America', nemesis: 'bison' })
     .end( () => {
     });
     request.get(apiUrl + '/api/bears')
