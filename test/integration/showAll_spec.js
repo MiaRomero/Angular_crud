@@ -33,6 +33,11 @@ describe('ohMyApp client side show all animals functionality', () => {
           continent: 'North America', nemesis: 'bison' })
     .end( () => {
     });
+    request.get(apiUrl + '/api/bears')
+    .end((err, res) => {
+      if (err) console.log(err);
+      bearCount = res.body.length;
+    });
     request.get(apiUrl + '/api/lions')
     .end((err, res) => {
       if (err) console.log(err);
@@ -42,11 +47,6 @@ describe('ohMyApp client side show all animals functionality', () => {
     .end((err, res) => {
       if (err) console.log(err);
       tigerCount = res.body.length;
-    });
-    request.get(apiUrl + '/api/bears')
-    .end((err, res) => {
-      if (err) console.log(err);
-      bearCount = res.body.length;
     });
   });
 
