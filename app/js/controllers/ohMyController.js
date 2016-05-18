@@ -19,5 +19,4 @@ ohMyApp.controller('OhMyController', ['$http', function($http) {
       this.friendsText = res.data;
     }, errorHandler.bind(this));
   };
-
 }]);
