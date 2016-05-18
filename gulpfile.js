@@ -85,6 +85,11 @@ gulp.task('protractor', ['startServersDB'], () => {
     });
   })
   .on('error', () => {
+    mongoose.connection.db.dropDatabase( () => {
+      mongoose.disconnect( () => {
+      server.close();
+      });
+    });
     children.forEach( (child) => {
       child.kill('SIGTERM');
     });
