@@ -16,7 +16,7 @@ var serverFiles = ['lib/**/*.js', 'test/**/*test.js', 'gulpfile.js',
                   'index.js', 'server/**/*.js'];
 var clientFiles = ['app/**/*.js'];
 
-var serverTestFiles = ['test/*.js'];
+var serverTestFiles = ['test/**/*test.js'];
 
 // lint tasks
 gulp.task('lint:server', () => {
@@ -90,3 +90,5 @@ gulp.task('protractor', ['startServersDB'], () => {
     });
   });
 });
+
+gulp.task('default', ['protractor']);
