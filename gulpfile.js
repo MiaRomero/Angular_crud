@@ -36,12 +36,24 @@ gulp.task('lint', ['lint:server', 'lint:client']);
 // build tasks
 gulp.task('webpack:dev', ['lint'], () => {
   return gulp.src('app/js/entry.js')
-  .pipe(webpack( {
+  .pipe(webpack({
+    devtool: 'source-map',
     output: {
       filename: 'bundle.js'
     }
   }))
   .pipe(gulp.dest('./build'));
+});
+
+gulp.task('webpack:test', ['lint'], () => {
+  return gulp.src('test/unit/test_entry.js')
+  .pipe(webpack({
+    devtool: 'source-map',
+    output: {
+      filename: 'bundle.js'
+    }
+  }))
+  .pipe(gulp.dest('./test'));
 });
 
 gulp.task('static:dev', () => {
