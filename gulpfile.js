@@ -4,6 +4,7 @@ const cp = require('child_process');
 const webpack = require('webpack-stream');
 const mocha = require('gulp-mocha');
 const protractor = require('gulp-protractor').protractor;
+const KarmaServer = require('karma').Server;
 
 const mongoose = require('mongoose');
 var port = 3000;
@@ -33,10 +34,11 @@ gulp.task('lint:client', () => {
 
 gulp.task('lint', ['lint:server', 'lint:client']);
 
-// build tasks
+// build dev tasks
 gulp.task('webpack:dev', ['lint'], () => {
   return gulp.src('app/js/entry.js')
-  .pipe(webpack( {
+  .pipe(webpack({
+    devtool: 'source-map',
     output: {
       filename: 'bundle.js'
     }
@@ -55,6 +57,18 @@ gulp.task('css:dev', () => {
 });
 
 gulp.task('build', ['webpack:dev', 'static:dev', 'css:dev']);
+
+// build test task
+gulp.task('webpack:test', ['lint'], () => {
+  return gulp.src('test/unit/test_entry.js')
+  .pipe(webpack({
+    devtool: 'source-map',
+    output: {
+      filename: 'bundle.js'
+    }
+  }))
+  .pipe(gulp.dest('./test'));
+});
 
 // test tasks
 gulp.task('mocha', () => {
@@ -96,4 +110,10 @@ gulp.task('protractor', ['startServersDB'], () => {
   });
 });
 
-gulp.task('default', ['protractor']);
+gulp.task('karma', ['webpack:test'], (done) => {
+  new KarmaServer({
+    configFile: __dirname + '/karma.config.js'
+  }, done).start();
+});
+
+gulp.task('test', ['protractor', 'karma']);
