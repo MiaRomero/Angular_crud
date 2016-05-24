@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Lions, Tigers, and Bears, Oh My!</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="application.css">
   </head>
 
   <body data-ng-app="ohMyApp">
@@ -210,7 +210,7 @@
 
       <button data-ng-if"!friends.hide" data-ng-click="friends.hide = true;
         ohMyCtrl.continent = null">Hide Friends</button>
-         
+
       <p id="friendsText" data-ng-if="!friends.hide">{{ ohMyCtrl.friendsText }}</p>
 
     <script src="./bundle.js"></script>
