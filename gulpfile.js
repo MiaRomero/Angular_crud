@@ -5,6 +5,9 @@ const webpack = require('webpack-stream');
 const mocha = require('gulp-mocha');
 const protractor = require('gulp-protractor').protractor;
 const KarmaServer = require('karma').Server;
+const sass = require('gulp-sass');
+const maps = require('gulp-sourcemaps');
+// const minifyCss = require('gulp-minify-css');
 
 const mongoose = require('mongoose');
 var port = 3000;
@@ -56,7 +59,20 @@ gulp.task('css:dev', () => {
   .pipe(gulp.dest('./build'));
 });
 
-gulp.task('build', ['webpack:dev', 'static:dev', 'css:dev']);
+gulp.task('sass:dev', () => {
+  return gulp.src('app/css/**/*.scss')
+  .pipe(maps.init())
+  .pipe(sass())
+  // .pipe(minifyCss())
+  .pipe(maps.write('./'))
+  .pipe(gulp.dest('./build'));
+});
+
+gulp.task('sass:watch', () => {
+  gulp.watch('./*.scss', ['sass:dev']);
+});
+
+gulp.task('build', ['webpack:dev', 'static:dev', 'sass:dev', 'css:dev']);
 
 // build test task
 gulp.task('webpack:test', ['lint'], () => {

@@ -1,0 +1,19 @@
+$fontColor: #02095C;
+
+html {
+  background-color: #F7F4D5;
+
+  button {
+    background-color: #FAA74D;
+    padding: .3em;
+  }
+
+  label {
+    color: $fontColor;
+  }
+
+  li {
+    color: $fontColor;
+    font: 14;
+  }
+}
