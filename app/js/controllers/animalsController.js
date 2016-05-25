@@ -6,8 +6,8 @@ const errorHandler = require(__dirname + '/../appErrorHandler');
 ohMyApp.controller('AnimalsController', ['$http', function($http) {
   this.animals = [];
 
-  this.getAll = (animal) => {
-    $http.get(baseUrl + '/api/' + animal + 's')
+  this.getAll = () => {
+    $http.get(baseUrl + '/api/' + this.species + 's')
     .then((res) => {
       this.animals = res.data;
     }, errorHandler.bind(this));
@@ -18,8 +18,8 @@ ohMyApp.controller('AnimalsController', ['$http', function($http) {
      + ' in ' + animal.continent + '. His nemesis is ' + animal.nemesis;
   };
 
-  this.createAnimal = (animal) => {
-    $http.post(baseUrl + '/api/' + animal + 's', this.newAnimal)
+  this.createAnimal = () => {
+    $http.post(baseUrl + '/api/' + this.species + 's', this.newAnimal)
     .then((res) => {
       this.animals.push(res.data);
       this.newAnimal = null;
@@ -36,14 +36,14 @@ ohMyApp.controller('AnimalsController', ['$http', function($http) {
   };
 
   this.updateAnimal = (animal) => {
-    $http.put(baseUrl + '/api/' + animal + 's/' + animal._id, animal)
+    $http.put(baseUrl + '/api/' + this.species + 's/' + animal._id, animal)
     .then(() => {
       animal.editing = false;
     }, errorHandler.bind(this));
   };
 
   this.removeAnimal = (animal) => {
-    $http.delete(baseUrl + '/api/' + animal + 's/' + animal._id)
+    $http.delete(baseUrl + '/api/' + this.species + 's/' + animal._id)
     .then(() => {
       this.animals.splice(this.animals.indexOf(animal), 1);
     }, errorHandler.bind(this));
