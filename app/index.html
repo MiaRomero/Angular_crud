@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>Lions, Tigers, and Bears, Oh My!</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="application.css">
   </head>
 
   <body data-ng-app="ohMyApp">
 
-    <section id="lionSection" data-ng-controller="LionsController as lionsCtrl"
+    <my-animal-form data-animal="lion"></my-animal-form>
+
+    <!-- <section id="lionSection" data-ng-controller="LionsController as lionsCtrl"
     data-ng-init="lion.hide = true">
 
       <button data-ng-click="lionsCtrl.getAll(); lion.hide = false">
@@ -66,7 +68,7 @@
 
         <button id="createLion" type="submit">Create New Lion</button>
       </form>
-    </section>
+    </section> -->
 
     <section id="tigerSection" data-ng-controller="TigersController as tigersCtrl"
     data-ng-init="tiger.hide = true">
@@ -210,7 +212,7 @@
 
       <button data-ng-if"!friends.hide" data-ng-click="friends.hide = true;
         ohMyCtrl.continent = null">Hide Friends</button>
-         
+
       <p id="friendsText" data-ng-if="!friends.hide">{{ ohMyCtrl.friendsText }}</p>
 
     <script src="./bundle.js"></script>
