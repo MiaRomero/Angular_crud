@@ -1,13 +1,12 @@
-<section id="{{animal}}Section" data-ng-controller="AnimalsController as animalCtrl"
-data-ng-init="animal.hide = true">
+<section id="{{animalCtrl.species}}Section" data-ng-init="animal.hide = true">
 
-  <button data-ng-click="animalCtrl.getAll(); animal.hide = false">
-    Show All {{animal}}s</button>
+  <button data-ng-click="animalCtrl.getAll(species); animal.hide = false">
+    Show All {{animalCtrl.species}}s</button>
   <button data-ng-if="!animal.hide" data-ng-click="animal.hide = true">
-    Hide All {{animal}}s</button>
+    Hide All {{animalCtrl.species}}s</button>
 
   <ul data-ng-if="!animal.hide" id="animallist">
-    <li data-ng-repeat="animal in animalCtrl.lions">
+    <li data-ng-repeat="animal in animalCtrl.animals">
     <span data-ng-if="!animal.editing">{{ animalCtrl.describe(animal) }}</span>
     <form data-ng-if="animal.editing" data-ng-submit="animalCtrl.updateAnimal(animal)">
       <label for="name">Name</label>
@@ -25,7 +24,7 @@ data-ng-init="animal.hide = true">
       <label for="nemesis">Nemesis</label>
       <input type="text" name="nemesis" data-ng-model="animal.nemesis">
 
-      <button type="submit">Update {{animal}}</button>
+      <button type="submit">Update {{animalCtrl.species}}</button>
     </form>
     <button data-ng-if="animal.editing" data-ng-click="animal.editing = false;
       animalCtrl.usedStashedAnimal(animal)">Cancel</button>
@@ -33,6 +32,27 @@ data-ng-init="animal.hide = true">
     <button data-ng-if="!animal.editing" data-ng-click="animalCtrl.saveCurrentAnimal(animal);
       animal.editing = true">Edit</button>
 
-    <button data-ng-click="animalCtrl.removeAnimal(animal)">Remove {{animal}}</button>
+    <button data-ng-click="animalCtrl.removeAnimal(animal)">Remove {{animalCtrl.species}}</button>
     </li>
   </ul>
+
+  <form data-ng-if="!animal.hide" data-ng-submit="animalCtrl.createAnimal()">
+    <label for="name">Name</label>
+    <input type="text" name="name" data-ng-model="animalCtrl.newAnimal.name">
+
+    <label for="variety">Variety</label>
+    <input type="text" name="variety" data-ng-model="animalCtrl.newAnimal.variety">
+
+    <label for="location">Location</label>
+    <input type="text" name="location" data-ng-model="animalCtrl.newAnimal.location">
+
+    <label for="continent">Continent</label>
+    <input type="text" name="location" data-ng-model="animalCtrl.newAnimal.continent">
+
+    <label for="nemesis">Nemesis</label>
+    <input type="text" name="nemesis" data-ng-model="animalCtrl.newAnimal.nemesis"
+    placeholder="poachers">
+
+    <button id="createAnimal" type="submit">Create New {{animalCtrl.species}}</button>
+  </form>
+</section>

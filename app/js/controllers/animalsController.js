@@ -1,16 +1,18 @@
 const angular = require('angular');
 const ohMyApp = require(__dirname + '/../ohMyApp');
 const baseUrl = 'http://localhost:3000';
-const errorHandler = require(__dirname + '/../appErrorHandler');
 
-ohMyApp.controller('AnimalsController', ['$http', function($http) {
+ohMyApp.controller('AnimalsController', ['$http',
+'appErrorHandler', function($http, appErrorHandler) {
   this.animals = [];
+  this.errors = [];
 
-  this.getAll = (animal) => {
-    $http.get(baseUrl + '/api/' + animal + 's')
+  this.getAll = () => {
+    $http.get(baseUrl + '/api/' + this.species + 's')
     .then((res) => {
       this.animals = res.data;
-    }, errorHandler.bind(this));
+    }, appErrorHandler(this.errors, 'could not get ' + this.species + 's')
+    .bind(this));
   };
 
   this.describe = (animal) => {
@@ -18,12 +20,13 @@ ohMyApp.controller('AnimalsController', ['$http', function($http) {
      + ' in ' + animal.continent + '. His nemesis is ' + animal.nemesis;
   };
 
-  this.createAnimal = (animal) => {
-    $http.post(baseUrl + '/api/' + animal + 's', this.newAnimal)
+  this.createAnimal = () => {
+    $http.post(baseUrl + '/api/' + this.species + 's', this.newAnimal)
     .then((res) => {
       this.animals.push(res.data);
       this.newAnimal = null;
-    }, errorHandler.bind(this));
+    }, appErrorHandler(this.errors, 'could not create ' + this.species)
+    .bind(this));
   };
 
   this.saveCurrentAnimal = (animal) => {
@@ -36,16 +39,18 @@ ohMyApp.controller('AnimalsController', ['$http', function($http) {
   };
 
   this.updateAnimal = (animal) => {
-    $http.put(baseUrl + '/api/' + animal + 's/' + animal._id, animal)
+    $http.put(baseUrl + '/api/' + this.species + 's/' + animal._id, animal)
     .then(() => {
       animal.editing = false;
-    }, errorHandler.bind(this));
+    }, appErrorHandler(this.errors, 'could not update ' + this.species)
+    .bind(this));
   };
 
   this.removeAnimal = (animal) => {
-    $http.delete(baseUrl + '/api/' + animal + 's/' + animal._id)
+    $http.delete(baseUrl + '/api/' + this.species + 's/' + animal._id)
     .then(() => {
       this.animals.splice(this.animals.indexOf(animal), 1);
-    }, errorHandler.bind(this));
+    }, appErrorHandler(this.errors, 'could not remove ' + this.species)
+    .bind(this));
   };
 }]);

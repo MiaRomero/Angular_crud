@@ -2,12 +2,14 @@ module.exports = exports = function(app) {
   app.directive('myAnimalForm', () => {
     return {
       restrict: 'EAC',
-      require: '^ngController',
+      controller: 'AnimalsController',
+      controllerAs: 'animalCtrl',
+      bindToController: {
+        species: '@'
+      },
       templateUrl: '/templates/animalFormTemplate.html',
       transclude: true,
-      scope: {
-        animal: '='
-      }
+      scope: {}
     };
   });
 };
