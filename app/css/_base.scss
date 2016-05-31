@@ -17,3 +17,32 @@ html {
     font: 14;
   }
 }
+////////
+@mixin fontStyle ($fontFamily: Calibri, $fontColor: #02095C, $fontSize: 16){
+  font-family: $fontFamily;
+  color: $fontColor;
+  font: $fontSize;
+}
+
+html {
+  background-color: #3677D2;
+}
+  button {
+    @include fontStyle;
+  	background-color:#C9CBCE;
+  	border-radius:9px;
+  	display:inline-block;
+  	cursor:pointer;
+  	padding:8px 10px;
+  	text-decoration:none;
+  }
+
+  label {
+    color: $fontColor;
+  }
+
+  li {
+    color: $fontColor;
+    font-family:$fontFamily;
+    font: 18;
+  }
