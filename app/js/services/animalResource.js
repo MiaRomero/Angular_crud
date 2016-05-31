@@ -1,5 +1,5 @@
 module.exports = exports = function(app) {
-  app.factory('httpResource', ['$http', 'appErrorHandler', function($http, errorHandler) {
+  app.factory('animalResource', ['$http', 'appErrorHandler', function($http, errorHandler) {
     const baseUrl = 'http://localhost:3000';
     var Resource = function(resourceArray, errorsArray, apiUrl) {
       this.data = resourceArray;
@@ -9,12 +9,12 @@ module.exports = exports = function(app) {
 
     Resource.prototype.getAll = function() {
       return $http.get(this.url)
-      .then( (res => {
+      .then( (res) => {
         this.data.splice(0);
         for (var i = 0; i < res.data.length; i++) {
           this.data.push(res.data[i]);
         }
-      }, errorHandler(this.errors, 'could not retrieve animals')));
+      }, errorHandler(this.errors, 'could not retrieve animals'));
     };
 
     Resource.prototype.create = function(animal) {
@@ -32,7 +32,7 @@ module.exports = exports = function(app) {
     Resource.prototype.remove = function(animal) {
       return $http.delete(this.url + '/' + animal._id)
       .then( () => {
-        this.data.splice(this.data.indexof(animal), 1);
+        this.data.splice(this.data.indexOf(animal), 1);
       }, errorHandler(this.errors, 'could not remove animal'));
     };
     return Resource;

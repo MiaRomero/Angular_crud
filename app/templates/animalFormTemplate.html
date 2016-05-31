@@ -1,6 +1,6 @@
 <section id="{{animalCtrl.species}}Section" data-ng-init="animal.hide = true">
 
-  <button data-ng-click="animalCtrl.getAll(species); animal.hide = false">
+  <button data-ng-click="animalCtrl.getAll(); animal.hide = false">
     Show All {{animalCtrl.species}}s</button>
   <button data-ng-if="!animal.hide" data-ng-click="animal.hide = true">
     Hide All {{animalCtrl.species}}s</button>
