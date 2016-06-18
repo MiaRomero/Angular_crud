@@ -20,11 +20,11 @@
       <button data-ng-if="!total.hide" data-ng-click="total.hide = true">
         Hide Totals</button>
 
-      <p id="totalsText" data-ng-if="!total.hide">{{ ohMyCtrl.totalsText }}</p>
+      <p id="totalsText" data-ng-if="!total.hide">{{ ohMyCtrl.totals.text }}</p>
 
       <form data-ng-submit="ohMyCtrl.getFriends()">
         <input type="text" name="continent" placeholder="Choose Continent"
-        data-ng-model="ohMyCtrl.continent">
+        data-ng-model="ohMyCtrl.continent.name">
 
         <button type="submit" data-ng-click="friends.hide = false">
           Find Friends</button>
@@ -33,7 +33,7 @@
       <button data-ng-if"!friends.hide" data-ng-click="friends.hide = true;
         ohMyCtrl.continent = null">Hide Friends</button>
 
-      <p id="friendsText" data-ng-if="!friends.hide">{{ ohMyCtrl.friendsText }}</p>
+      <p id="friendsText" data-ng-if="!friends.hide">{{ ohMyCtrl.friends.text }}</p>
 
     <script src="./bundle.js"></script>
   </body>
